@@ -5,7 +5,7 @@ import api from '../../services/api';
 import { Link } from "react-router-dom";
 
 import { Title, Form, Repositories, Error } from './styles';
-import Repository from '../Repository';
+
 
 interface Repository {
   full_name: string;
