@@ -7,13 +7,20 @@ import { Container, Content, Background } from './styles'
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
-const SingUp: React.FC = () => (
+import { Form } from "@unform/web";
+
+const SingUp: React.FC = () => {
+  function handleSumbit(data: object): void {
+    console.log(data);
+
+  }
+ return (
  <Container>
 <Background />
    <Content>
     <img src={logoImg} alt="gobarber logo"/>
 
-    <form>
+    <Form  onSubmit={handleSumbit}>
      <h1>Faça seu cadastro</h1>
 
      <Input name="name" icon={FiUser} placeholder="Nome"/>
@@ -22,7 +29,7 @@ const SingUp: React.FC = () => (
 
       <Button type="submit">Cadastrar</Button>
 
-    </form>
+    </Form>
 
     <a href="#a">
       <FiArrowLeft/>
@@ -32,6 +39,7 @@ const SingUp: React.FC = () => (
    </Content>
 
  </Container>
-);
+ )
+};
 
 export default SingUp
