@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import siginBackgroundImg from '../../assets/sign-in-background.png';
+import siginBackgroundImg from '../../assets/sign-up-background.png';
 import { shade } from "polished";
 
 export const Container = styled.div`
