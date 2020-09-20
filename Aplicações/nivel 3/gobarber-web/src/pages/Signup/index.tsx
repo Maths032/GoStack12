@@ -1,20 +1,26 @@
-import React, {useCallback} from 'react'
+import React, {useCallback, useRef} from 'react'
 
 import logoImg from '../../assets/logo.svg';
 import {FiLock, FiMail, FiArrowLeft, FiUser} from 'react-icons/fi';
+import getValidationErrors from '../../utils/getValidationError'
 
 import { Container, Content, Background } from './styles'
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import * as Yup from "yup";
 
+import { FormHandles } from "@unform/core";
 import { Form } from "@unform/web";
 
 const SingUp: React.FC = () => {
- const handleSumbit = useCallback( async (data: object) => {
-    console.log(data);
+  const formRef = useRef<FormHandles>(null);
+
+  const handleSumbit = useCallback( async (data: object) => {
+
+
 
     try{
+      formRef.current?.setErrors({})
       const schema = Yup.object().shape({
         name: Yup.string().required('Nome é obrigatorio'),
         email: Yup.string().required('E-mail é obrigatorio').email('Digite um e-mail valido'),
@@ -24,8 +30,12 @@ const SingUp: React.FC = () => {
       await schema.validate(data, {
         abortEarly: false,
       });
-    }catch (e){
-      console.log(e);
+
+    }catch (error){
+
+      const errors = getValidationErrors(error)
+
+      formRef.current?.setErrors(errors)
     }
 
   }, [])
@@ -35,7 +45,7 @@ const SingUp: React.FC = () => {
    <Content>
     <img src={logoImg} alt="gobarber logo"/>
 
-    <Form  onSubmit={handleSumbit}>
+    <Form  ref={formRef} onSubmit={handleSumbit}>
      <h1>Faça seu cadastro</h1>
 
      <Input name="name" icon={FiUser} placeholder="Nome"/>
