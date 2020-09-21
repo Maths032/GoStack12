@@ -1,9 +1,11 @@
-import React, {useCallback, useRef} from 'react'
+import React, {useCallback, useRef, useContext} from 'react'
 
 import logoImg from '../../assets/logo.svg';
 import {FiLock, FiMail, FiArrowLeft, FiUser} from 'react-icons/fi';
 import getValidationErrors from '../../utils/getValidationError'
 
+
+import AuthContext from '../../context/AuthContext';
 import { Container, Content, Background } from './styles'
 import Input from '../../components/Input';
 import Button from '../../components/Button';
@@ -14,10 +16,11 @@ import { Form } from "@unform/web";
 
 const SingUp: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
+    const {name} = useContext(AuthContext);
+
+
 
   const handleSumbit = useCallback( async (data: object) => {
-
-
 
     try{
       formRef.current?.setErrors({})
